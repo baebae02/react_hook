@@ -1,14 +1,13 @@
 import './App.css';
 import React from "react";
-import {useTitle} from "./userHooks/useTitle";
-
+import {useClick} from "./userHooks/useClick";
 
 const App = () => {
-    const titleUpdater = useTitle("loading...");
-    setTimeout(() => titleUpdater("Home"), 5000);
+    const sayHello = () => console.log("hello");
+    const title = useClick(sayHello);
     return (
         <div className="App">
-
+            <h1 ref={title}>Hi</h1>
         </div>
     );
 }
