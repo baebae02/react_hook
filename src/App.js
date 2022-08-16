@@ -1,13 +1,28 @@
-import './App.css';
-import React from "react";
+import { useEffect } from "react";
 
+const useBeforeLeave = onBefore => {
 
-const App = () => {
+    const handle = event => {
+        console.log(event);
+        const { clientY } = event;
+        if (clientY) {
+            onBefore();
+        }
+    };
+    useEffect(() => {
+        if (typeof onBefore === "function") {
+            document.addEventListener('mouseleave', handle);
+            console.log('event enroll');
+            return () => document.removeEventListener('mouseleave', handle);
+        }
+    }, []);
+};
+
+export default function App(props) {
+    useBeforeLeave(() => console.log("Plz"));
     return (
         <div className="App">
-
+            <div>App</div>
         </div>
     );
-}
-
-export default App;
+};
