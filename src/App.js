@@ -1,28 +1,12 @@
-import { useEffect } from "react";
+import {useScroll} from "./userHooks/useScroll";
 
-const useBeforeLeave = onBefore => {
-
-    const handle = event => {
-        console.log(event);
-        const { clientY } = event;
-        if (clientY) {
-            onBefore();
-        }
-    };
-    useEffect(() => {
-        if (typeof onBefore === "function") {
-            document.addEventListener('mouseleave', handle);
-            console.log('event enroll');
-            return () => document.removeEventListener('mouseleave', handle);
-        }
-    }, []);
-};
-
-export default function App(props) {
-    useBeforeLeave(() => console.log("Plz"));
+const App = () => {
+    const {y} = useScroll();
     return (
-        <div className="App">
-            <div>App</div>
+        <div className="App" style={{ height: "1000vh"}}>
+            <h1 style={{ position: "fixed", color: y > 100 ? "red" : "blue" }}>Hi</h1>
         </div>
     );
 };
+
+export default App;
