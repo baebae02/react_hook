@@ -1,19 +1,10 @@
-import {useRef} from "react";
+import {useFullscreen} from "./userHooks/useFullscreen";
 
-const useFullscreen = () => {
-    const element = useRef();
-    const triggerFull = () => {
-        if (element.current) {
-            element.current.requestFullscreen();
-        }
-    }
-    const exitFull = () => {
-        document.exitFullscreen();
-    }
-    return {element, triggerFull, exitFull};
-}
 const App = () => {
-    const {element, triggerFull, exitFull} = useFullscreen();
+    const callback = (isFull) => {
+        console.log(isFull ? "We are Full" : "We are Small");
+    }
+    const {element, triggerFull, exitFull} = useFullscreen(callback);
     return (
         <div className="App" style={{ height: "1000vh"}}>
             <div ref={element}>
